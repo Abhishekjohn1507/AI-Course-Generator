@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import SideBar from './_components/SideBar'
 import Header from './_components/Header'
 import { UserCourseListContext } from '../_context/UserCourseListContext'
-import { UserSubscriptionContext } from '../_context/UserSubscriptionContext'
+import {UserSubscriptionContext } from '../_context/UserSubscriptionContext'
 import{UpdateCourseUsageContext} from '../_context/UpdateCourseUsageContext'
 function DashboardLayout({ children }) {
   const [userCourseList, setUserCourseList] = useState([]);
