@@ -2,13 +2,13 @@
 
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
-import { HiOutlineHome } from "react-icons/hi";
-import { HiOutlineSquare3Stack3D } from "react-icons/hi2";
-import { GiArmorUpgrade } from "react-icons/gi";
-import { RiLogoutCircleRLine } from "react-icons/ri";
+import { HiOutlineHome } from 'react-icons/hi';
+import { HiOutlineSquare3Stack3D } from 'react-icons/hi2';
+import { GiArmorUpgrade } from 'react-icons/gi';
+import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Progress } from "@/components/ui/progress";
+import { Progress } from '@/components/ui/progress';
 import { UserCourseListContext } from '@/app/_context/UserCourseListContext';
 import { UserSubscriptionContext } from '@/app/_context/UserSubscriptionContext';
 import { db } from '@/configs/db';
@@ -26,13 +26,13 @@ function SideBar() {
 
   // Check if user is subscribed and update subscription status
   const checkUserSubscription = async () => {
+    if (!user) return; // Early return if user is not available
     try {
       const result = await db
         .select()
         .from(UserSubscription)
         .where(eq(UserSubscription.email, user?.primaryEmailAddress?.emailAddress));
 
-      // Debug log to check what result contains
       console.log('Subscription Query Result:', result);
 
       // Update subscription status based on query result
@@ -50,25 +50,22 @@ function SideBar() {
 
   // Fetch subscription info when user changes
   useEffect(() => {
-    if (user) {
-      checkUserSubscription();
-      
-    }
+    checkUserSubscription();
   }, [user]);
 
   // Redirect to billing if course limit exceeded without subscription
   useEffect(() => {
-    if (userCourseList.length >= maxCourses && !UserSubscription?.isActive) {
+    if (userCourseList.length >= maxCourses && !userSubscription.isActive) {
       router.push('/dashboard/billing');
     }
-  }, [userCourseList, UserSubscription, maxCourses, router]);
+  }, [userCourseList, userSubscription, maxCourses, router]);
 
   // Redirect to dashboard if user has an active subscription
   useEffect(() => {
-    if (UserSubscription?.isActive && path !== '/dashboard') {
+    if (UserSubscription.active && path !== '/dashboard') {
       router.push('/dashboard');
     }
-  }, [UserSubscription, path, router]);
+  }, [userSubscription, path, router]);
 
   // Sidebar menu items
   const Menu = [
@@ -77,7 +74,6 @@ function SideBar() {
     { id: 3, name: 'Upgrade', icon: <GiArmorUpgrade />, path: '/dashboard/billing' },
     { id: 4, name: 'Logout', icon: <RiLogoutCircleRLine />, path: '/dashboard/logout' },
   ];
-  console.log(UserSubscription.active);
 
   return (
     <div className='fixed h-full md:w-64 p-5 shadow-md'>
@@ -107,12 +103,10 @@ function SideBar() {
 
         {/* Subscription Message */}
         <h2 className='text-xs text-gray-500'>
-  {UserSubscription?.active
-    ? `You have an active subscription. Create up to ${maxCourses} courses.` 
-    : 'You can create up to 5 courses with the free plan. Upgrade for unlimited course creation.'}
-</h2>
-
-
+          {UserSubscription.active
+            ? `You have an active subscription. Create up to ${maxCourses} courses.`
+            : 'You can create up to 5 courses with the free plan. Upgrade for unlimited course creation.'}
+        </h2>
       </div>
     </div>
   );
