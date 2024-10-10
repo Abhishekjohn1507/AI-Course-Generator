@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",  // This allows for base URL aliasing
+    "paths": {
+      "@/components/*": ["./components/*"],
+      "@/app/*": ["./app/*"],
+      "@/configs/*": ["configs/*"],
+      "@/lib/*": ["./lib/*"]  // This is correct for the lib alias
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "middleware.js"  // Include middleware.js if you want TypeScript to check it
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
