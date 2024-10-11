@@ -7,7 +7,7 @@ import CourseCard from './CourseCard';
 import { UserCourseListContext } from '@/app/_context/UserCourseListContext';
 import { CourseList, UserSubscription } from 'configs/schema';
 import { db } from 'configs/db';
-import { UserSubscriptionContext } from '@/app/_context/UserSubscriptionContext';
+import { UserSubscriptionContext } from '../../_context/UserSubsCriptionContext';
 
 function UserCourseList() {
   const [courseList, setCourseList] = useState([]); // List of courses

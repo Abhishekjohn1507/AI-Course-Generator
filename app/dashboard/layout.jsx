@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react'
 import SideBar from './_components/SideBar'
 import Header from './_components/Header'
 import { UserCourseListContext } from '../_context/UserCourseListContext'
-import { UserSubscriptionContext } from '../_context/UserSubscriptionContext'
-import { UpdateCourseUsageContext } from '../_context/UpdateCourseUsageContext'
+import { UserSubscriptionContext } from '../../_context/UserSubsCriptionContext';
 function DashboardLayout({ children }) {
   const [userCourseList, setUserCourseList] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
