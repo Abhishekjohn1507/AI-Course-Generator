@@ -10,7 +10,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Progress } from '@/components/ui/progress';
 import { UserCourseListContext } from '@/app/_context/UserCourseListContext';
-import { UserSubscriptionContext } from '@/app/_context/UserSubscriptionContext';
+import { UserSubscriptionContext } from '../../_context/UserSubsCriptionContext';
 import { db } from '@/configs/db';
 import { UserSubscription } from '@/configs/schema';
 import { useUser } from '@clerk/nextjs';
