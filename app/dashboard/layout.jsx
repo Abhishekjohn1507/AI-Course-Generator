@@ -23,7 +23,7 @@ function DashboardLayout({ children }) {
   return (
     <UserCourseListContext.Provider value={{ userCourseList, setUserCourseList }}>
       <UserSubscriptionContext.Provider value={{ usersubscription, setUserSubscription }}>
-<UpdateCourseUsageContext.Provider value={{updateCourseUsage, setUpdateCourseUsage}}>
+{/* <UpdateCourseUsageContext.Provider value={{updateCourseUsage, setUpdateCourseUsage}}> */}
       <div>
         <div className='md:w-64 hidden md:block'>
           <SideBar />
@@ -35,7 +35,7 @@ function DashboardLayout({ children }) {
           </div>
         </div>
       </div>
-      </UpdateCourseUsageContext.Provider>
+      {/* </UpdateCourseUsageContext.Provider> */}
 
       </UserSubscriptionContext.Provider>
     </UserCourseListContext.Provider>
