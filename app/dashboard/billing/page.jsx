@@ -6,7 +6,8 @@ import { UserSubscription } from '@/configs/schema';
 import { useUser } from '@clerk/nextjs';
 import { db } from '@/configs/db';
 import moment from 'moment';
-import { UserSubscriptionContext } from '@/app/_context/UserSubscriptionContext';
+import UserSubscriptionContext from '../_context/UserSubscriptionContext'; // Adjust this path as necessary.
+
 
 
 

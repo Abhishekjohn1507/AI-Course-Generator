@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 import SideBar from './_components/SideBar'
 import Header from './_components/Header'
 import { UserCourseListContext } from '../_context/UserCourseListContext'
-import { UserSubscriptionContext } from '@/app/_context/UserSubscriptionContext';
+import UserSubscriptionContext from '../_context/UserSubscriptionContext'; // Adjust this path as necessary.
+
 
 function DashboardLayout({ children }) {
   const [userCourseList, setUserCourseList] = useState([]);
