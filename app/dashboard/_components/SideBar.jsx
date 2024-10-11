@@ -10,11 +10,11 @@ import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Progress } from '@/components/ui/progress';
 import { UserCourseListContext } from '@/app/_context/UserCourseListContext';
+import { UserSubscriptionContext } from '@/app/_context/UserSubscriptionContext';
 import { db } from '@/configs/db';
 import { UserSubscription } from '@/configs/schema';
 import { useUser } from '@clerk/nextjs';
 import { eq } from 'drizzle-orm';
-import { UserSubscriptionContext } from '@/app/_context/UserSubscriptionContext';
 
 function SideBar() {
   const { userCourseList } = useContext(UserCourseListContext);
@@ -37,11 +37,11 @@ function SideBar() {
 
       // Update subscription status based on query result
       if (result.length > 0 && result[0]?.active) {
-        setUserSubscription({ isActive: true }); // Set the correct structure for userSubscription
+        setUserSubscription({ isActive: true });
         setMaxCourses(10); // Active subscription allows 10 courses
       } else {
-        setUserSubscription({ isActive: false }); // Default to 5 if no active subscription
-        setMaxCourses(5);
+        setUserSubscription({ isActive: false });
+        setMaxCourses(5); // Default to 5 courses for free plan
       }
     } catch (error) {
       console.error('Error fetching subscription:', error);
@@ -55,17 +55,17 @@ function SideBar() {
 
   // Redirect to billing if course limit exceeded without subscription
   useEffect(() => {
-    if (userCourseList.length >= maxCourses && !userSubscription.isActive) {
+    if (userCourseList.length >= maxCourses && !UserSubscription.isActive) {
       router.push('/dashboard/billing');
     }
-  }, [userCourseList, userSubscription, maxCourses, router]);
+  }, [userCourseList, UserSubscription.isActive, maxCourses, router]);
 
-  // Redirect to dashboard if user has an active subscription
+  // Redirect to dashboard only if the user has an active subscription and the current path is not '/dashboard'
   useEffect(() => {
-    if (UserSubscription.active && path !== '/dashboard') {
+    if (UserSubscription.isActive && path !== '/dashboard') {
       router.push('/dashboard');
     }
-  }, [userSubscription, path, router]);
+  }, [UserSubscription.isActive, path, router]);
 
   // Sidebar menu items
   const Menu = [
